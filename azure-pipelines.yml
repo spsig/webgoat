@@ -9,8 +9,12 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-
 steps:
+- task: SynopsysPolaris@1
+  inputs:
+    polarisService: 'Demo Server'
+    polarisCommand: 'analyze -w'
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -21,7 +25,4 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-- task: SynopsysPolaris@1
-  inputs:
-    polarisService: 'Demo Server'
-    polarisCommand: 'polaris analyze -w'
+
